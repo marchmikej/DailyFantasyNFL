@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -45,6 +46,7 @@ namespace DailyFantasyNFL
             playersTable.Columns.Add("fanDuelCost", typeof(System.Int32));
             playersTable.Columns.Add("numberfireFanDuelProjection", typeof(System.Int32));
             playersTable.Columns.Add("rotogrindersFanDuelProjection", typeof(System.Int32));
+            playersTable.Columns.Add("proFootballFocusProjection", typeof(System.Int32));
             playersTable.Columns.Add("fanDuelValue", typeof(System.Int32));
             dataGridPlayers.DataSource = playersTable;
             txtMinHighScore.Text = minHighScore.ToString();
@@ -66,12 +68,14 @@ namespace DailyFantasyNFL
             }
             else if (rdoRotoWire.Checked)
             {
-                radioRotoWireNFL("https://www.rotowire.com/daily/nfl/optimizer.php?site=FanDuel&slate=Main&type=main");
+                //radioRotoWireNFL("https://www.rotowire.com/daily/nfl/optimizer.php?site=FanDuel&slate=Main&type=main");
+                readCSVProFootballFocus("haha");
             }
         }
 
         private void radioRotoWireNFL(String url)
         {
+           
             String NFLFile = txtIncomingText.Text;
             //int playerLocal = NFLFIle.IndexOf("<a class=\"full\" href=\"");
             //using (WebClient client = new WebClient())
@@ -504,6 +508,71 @@ namespace DailyFantasyNFL
             qbCount = 0;
             wr1Count = 0;
             btnRunStats.Enabled = true;
+        }
+
+        public void readCSVProFootballFocus(String filepath)
+        {
+            txtIncomingText.Text = "";
+            //C:\Users\michael.march\Downloads\projections.csv
+            {
+                StreamReader reader = new StreamReader(File.OpenRead(@"C:\Users\michael.march\Downloads\projections.csv"));
+                //string vara1, vara2, vara3, vara4;
+                int linecount = 0;
+                while (!reader.EndOfStream)
+                {
+                    linecount++;
+                    txtIncomingText.Text = txtIncomingText.Text + "\n";
+                    string line = reader.ReadLine();
+                    if (!String.IsNullOrWhiteSpace(line) && linecount > 2)
+                    {
+                        string[] values = line.Split(',');
+                        if (values.Length >= 7)
+                        {                            
+                            int playerId = Int32.Parse(values[0].Replace("\"", ""));
+                            if (playerId > 0) {
+                                String playerName = values[1].Replace("\"", "");
+                                String lastName = "";
+                                String firstName = "";
+                                int spaceName = playerName.IndexOf(" ");
+                                if (spaceName > 0)
+                                {
+                                    lastName = playerName.Substring(spaceName + 1);
+                                    firstName = playerName.Substring(0, spaceName);
+                                }
+                                else
+                                {
+                                    lastName = playerName;
+                                }
+                                String playerPosition = values[3].Replace("\"", "").ToUpper();
+                                String team = values[2].Replace("\"", "");
+                                String opponent = values[5];
+
+                                if (playerPosition == "DST") {
+                                    playerPosition = "D/ST";
+                                }
+
+                                double playerProjection = Double.Parse(values[6].Replace("\"", ""));
+
+                                Player thisPlayer = new Player();
+                                thisPlayer.lastName = lastName;
+                                thisPlayer.firstName = firstName;
+                                thisPlayer.fanDuelCost = -1;
+                                thisPlayer.numberfireFanDuelProjection = -1;
+                                thisPlayer.rotogrindersFanDuelProjection = -1;
+                                thisPlayer.proFootballFocusProjection = playerProjection;
+                                thisPlayer.position = playerPosition;
+
+                                UpdatePlayerList(thisPlayer);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void rdoRotoWire_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
     public struct PlayerStats

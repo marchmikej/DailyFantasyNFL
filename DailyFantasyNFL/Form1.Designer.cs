@@ -215,11 +215,12 @@
             this.rdoRotoWire.AutoSize = true;
             this.rdoRotoWire.Location = new System.Drawing.Point(127, 382);
             this.rdoRotoWire.Name = "rdoRotoWire";
-            this.rdoRotoWire.Size = new System.Drawing.Size(70, 17);
+            this.rdoRotoWire.Size = new System.Drawing.Size(107, 17);
             this.rdoRotoWire.TabIndex = 17;
             this.rdoRotoWire.TabStop = true;
-            this.rdoRotoWire.Text = "RotoWire";
+            this.rdoRotoWire.Text = "ProFootballFocus";
             this.rdoRotoWire.UseVisualStyleBackColor = true;
+            this.rdoRotoWire.CheckedChanged += new System.EventHandler(this.rdoRotoWire_CheckedChanged);
             // 
             // Form1
             // 

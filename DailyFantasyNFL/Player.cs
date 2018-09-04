@@ -16,6 +16,7 @@ namespace DailyFantasyNFL
         public int fanDuelCost;
         public double rotogrindersFanDuelProjection;
         public double numberfireFanDuelProjection;
+        public double proFootballFocusProjection;
         public double playerStartValue;
 
         public Player()
@@ -27,12 +28,13 @@ namespace DailyFantasyNFL
             fanDuelCost = -1;
             rotogrindersFanDuelProjection = -1;
             numberfireFanDuelProjection = -1;
+            proFootballFocusProjection = -1;
             id = -1;
         }
 
         public double getExpectedValue()
         {
-            return (numberfireFanDuelProjection + rotogrindersFanDuelProjection) / 2;
+            return (numberfireFanDuelProjection + rotogrindersFanDuelProjection + proFootballFocusProjection) / 3;
         }
 
         public double playerValue()
@@ -77,6 +79,7 @@ namespace DailyFantasyNFL
             workRow["fanDuelCost"] = fanDuelCost;
             workRow["numberfireFanDuelProjection"] = numberfireFanDuelProjection;
             workRow["rotogrindersFanDuelProjection"] = rotogrindersFanDuelProjection;
+            workRow["proFootballFocusProjection"] = proFootballFocusProjection;
             workRow["position"] = position;
             workRow["fanDuelValue"] = getExpectedValue() * 10000 / fanDuelCost;
             return workRow;
