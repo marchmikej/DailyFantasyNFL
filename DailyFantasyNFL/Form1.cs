@@ -27,97 +27,97 @@ namespace DailyFantasyNFL
         List<PlayerStats> defs = new List<PlayerStats>();
         List<String> lineups = new List<String>();
         String highLineup = "";
-
+        int playerCount = 0;
+        int totalThreads = 0;
+        int threadsDone = 0;
         DataTable playersTable = new DataTable("Players");
-
-        int minHighScore = 100;
-        int maxCost = 60000;
+        DataTable lineupsTable = new DataTable("Lineups");
+        String rb2sdone = "";
+        
         int highScore = 0;
         int highCost = 0;
         int qbCount = 0;
         int wr1Count = 0;
+        int rb2Count = 0;
 
         public Form1()
         {
             InitializeComponent();
+            playersTable.Columns.Add("id", typeof(System.Int32));
             playersTable.Columns.Add("position", typeof(System.String));
             playersTable.Columns.Add("lastName", typeof(System.String));
             playersTable.Columns.Add("firstName", typeof(System.String));
             playersTable.Columns.Add("fanDuelCost", typeof(System.Int32));
+            playersTable.Columns.Add("fanDuelValue", typeof(System.Int32));
+            playersTable.Columns.Add("pointsProjection", typeof(System.Int32));
+            playersTable.Columns.Add("team", typeof(System.String));
+            playersTable.Columns.Add("opponent", typeof(System.String));
+            playersTable.Columns.Add("gameday", typeof(System.String));
             playersTable.Columns.Add("numberfireFanDuelProjection", typeof(System.Int32));
             playersTable.Columns.Add("rotogrindersFanDuelProjection", typeof(System.Int32));
             playersTable.Columns.Add("proFootballFocusProjection", typeof(System.Int32));
-            playersTable.Columns.Add("fanDuelValue", typeof(System.Int32));
+
             dataGridPlayers.DataSource = playersTable;
-            txtMinHighScore.Text = minHighScore.ToString();
+
+            lineupsTable.Columns.Add("score", typeof(System.String));
+            lineupsTable.Columns.Add("cost", typeof(System.String));
+            lineupsTable.Columns.Add("qb", typeof(System.String));
+            lineupsTable.Columns.Add("rb1", typeof(System.String));
+            lineupsTable.Columns.Add("rb2", typeof(System.String));
+            lineupsTable.Columns.Add("wr1", typeof(System.String));
+            lineupsTable.Columns.Add("wr2", typeof(System.String));
+            lineupsTable.Columns.Add("wr3", typeof(System.String));
+            lineupsTable.Columns.Add("te", typeof(System.String));
+            lineupsTable.Columns.Add("flex", typeof(System.String));
+            lineupsTable.Columns.Add("def", typeof(System.String));
+
+            txtMinHighScore.Text = Variables.minPointLineup.ToString();
+            txtThreadNumber.Text = Variables.threads.ToString();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (rdoRotoGrinders.Checked)
+            if (rdoFanDuel.Checked)
             {
-                radioRotGrindersNFL();
+                Variables.gameCost = 60000;
+                if (rdoRotoGrinders.Checked)
+                {
+                    radioRotGrindersNFL("https://rotogrinders.com/lineups/nfl?site=fanduel");
+                }
+                else if (rdoNumberFire.Checked)
+                {
+                    radioNumFireNFL("https://www.numberfire.com/nfl/daily-fantasy/daily-football-projections");
+                }
+                else if (rdoNumberFireDefense.Checked)
+                {
+                    radioNumFireNFL("https://www.numberfire.com/nfl/daily-fantasy/daily-football-projections/D");
+                }
+                else if (rdoRotoWire.Checked)
+                {
+                    readCSVProFootballFocus("Incoming CSV");
+                }
             }
-            else if (rdoNumberFire.Checked)
+            else if (rdoDraftKings.Checked)
             {
-                radioNumFireNFL("https://www.numberfire.com/nfl/daily-fantasy/daily-football-projections");
-            }
-            else if (rdoNumberFireDefense.Checked)
-            {
-                radioNumFireNFL("https://www.numberfire.com/nfl/daily-fantasy/daily-football-projections/D");
-            }
-            else if (rdoRotoWire.Checked)
-            {
-                //radioRotoWireNFL("https://www.rotowire.com/daily/nfl/optimizer.php?site=FanDuel&slate=Main&type=main");
-                readCSVProFootballFocus("haha");
+                Variables.gameCost = 50000;
+                if (rdoRotoGrinders.Checked)
+                {
+                    radioRotGrindersNFL("https://rotogrinders.com/lineups/nfl?site=draftkings");
+                }
+                else if (rdoNumberFire.Checked)
+                {
+                    radioNumFireNFL(txtIncomingText.Text);
+                }
+                else if (rdoRotoWire.Checked)
+                {
+                    readCSVProFootballFocus("Incoming CSV");
+                }
             }
         }
 
-        private void radioRotoWireNFL(String url)
-        {
-           
-            String NFLFile = txtIncomingText.Text;
-            //int playerLocal = NFLFIle.IndexOf("<a class=\"full\" href=\"");
-            //using (WebClient client = new WebClient())
-            //{
-            //    NFLFile = client.DownloadString(url);
-            //}
-            txtIncomingText.Text = NFLFile;
-
-            int playerLocal = NFLFile.IndexOf("data-name=\"");
-            txtIncomingText.Text = "";
-            while (playerLocal > 0)
-            {
-                NFLFile = NFLFile.Substring(playerLocal + 2);
-
-                //Player Name Start
-                int locStart = NFLFile.IndexOf("\"");
-                int locEnd = NFLFile.IndexOf("\">");
-                String playerName = NFLFile.Substring(locStart + 1, locEnd - locStart - 1);
-                NFLFile = NFLFile.Substring(locEnd + 3);
-                String lastName = "";
-                String firstName = "";
-                playerName = playerName.Trim();
-                int spaceName = playerName.IndexOf(" ");
-                if (spaceName > 0)
-                {
-                    lastName = playerName.Substring(spaceName + 1);
-                    firstName = playerName.Substring(0, spaceName);
-                }
-                else
-                {
-                    lastName = playerName;
-                }
-                //Player Name End
-                txtIncomingText.Text = txtIncomingText.Text + playerName + "\n";
-                playerLocal = NFLFile.IndexOf("data-name=\"");
-            }
-        }
-
-            private void radioNumFireNFL(String url)
+        private void radioNumFireNFL(String url)
         {
             String NFLFIle = txtIncomingText.Text;
-            //int playerLocal = NFLFIle.IndexOf("<a class=\"full\" href=\"");
             using (WebClient client = new WebClient())
             {
                 NFLFIle = client.DownloadString(url);
@@ -164,6 +164,17 @@ namespace DailyFantasyNFL
                 }
                 //Position End 
 
+                //GameDay Start
+                locStart = NFLFIle.IndexOf("<span class=\"gametim");
+                NFLFIle = NFLFIle.Substring(locStart + 10);
+                locStart = NFLFIle.IndexOf(">");
+                locEnd = NFLFIle.IndexOf("<");
+
+                String gameDay = NFLFIle.Substring(locStart + 1, locEnd - locStart - 1);
+                NFLFIle = NFLFIle.Substring(locEnd + 3);
+                gameDay = gameDay.Trim();
+                //GameDay End
+
                 //Projected Points Start
                 locStart = NFLFIle.IndexOf("<td class=\"fp active\">");
                 NFLFIle = NFLFIle.Substring(locStart + 10);
@@ -198,10 +209,12 @@ namespace DailyFantasyNFL
                 thisPlayer.lastName = lastName;
                 thisPlayer.firstName = firstName;
                 thisPlayer.fanDuelCost = playerFanDuelSalary;
+                thisPlayer.gameDay = gameDay;
                 thisPlayer.numberfireFanDuelProjection = playerPoints;
                 if (playerPosition == "D/ST")
                 {
                     thisPlayer.rotogrindersFanDuelProjection = playerPoints;
+                    thisPlayer.proFootballFocusProjection = playerPoints;
                 }
                 else
                 {
@@ -218,7 +231,7 @@ namespace DailyFantasyNFL
             }
         }
 
-        private void radioRotGrindersNFL()
+        private void radioRotGrindersNFL(String url)
         {
             string NFLFile = "";
             
@@ -333,13 +346,31 @@ namespace DailyFantasyNFL
                     {
                         player.numberfireFanDuelProjection = newPlayer.numberfireFanDuelProjection;
                     }
+                    if (player.proFootballFocusProjection == -1)
+                    {
+                        player.proFootballFocusProjection = newPlayer.proFootballFocusProjection;
+                    }
                     if (player.fanDuelCost == -1)
                     {
                         player.fanDuelCost = newPlayer.fanDuelCost;
                     }
+                    if (player.team == "")
+                    {
+                        player.team = newPlayer.team;
+                    }
+                    if (player.opponent == "")
+                    {
+                        player.opponent = newPlayer.opponent;
+                    }
+                    if (player.gameDay == "")
+                    {
+                        player.gameDay = newPlayer.gameDay;
+                    }
                     return false;
                 }
             }
+            playerCount++;
+            newPlayer.id = playerCount;
             players.Add(newPlayer);
             DataRow workRow = playersTable.NewRow();
             playersTable.Rows.Add(newPlayer.CreateDataRow(workRow));
@@ -362,6 +393,8 @@ namespace DailyFantasyNFL
         {
             txtIncomingText.Text = "Player count: " + players.Count.ToString() + "\n";
             playersTable.Clear();
+            dataGridPlayers.DataSource = playersTable;
+          
             foreach (Player player in players)
             {
                 txtIncomingText.Text = txtIncomingText.Text + player.ToString() + "\n";
@@ -374,57 +407,101 @@ namespace DailyFantasyNFL
 
         private void btnRunStats_Click(object sender, EventArgs e)
         {
+            Variables.Thursday = chkThursday.Checked;
+            Variables.Saturday = chkSaturday.Checked;
+            Variables.Sunday = chkSunday.Checked;
+            Variables.Monday = chkMonday.Checked;
             btnRunStats.Enabled = false;
             txtIncomingText.Text = "Running Stats";
             int minValue = Int32.Parse(txtMinValue.Text);
-            minHighScore = Int32.Parse(txtMinHighScore.Text);
-            int count = 1;
+            Variables.minPointLineup = Int32.Parse(txtMinHighScore.Text);
+            Variables.threads = Int32.Parse(txtThreadNumber.Text);
+
+            int qbid = Int32.Parse(txtQBid.Text);
+            int rb1id = Int32.Parse(txtRB1id.Text);
+            int wr1id = Int32.Parse(txtWR1id.Text);
+            int teid = Int32.Parse(txtTEid.Text);
+            int defid = Int32.Parse(txtDEFid.Text);
+            int utilid = Int32.Parse(txtUTILid.Text);
+
             foreach (Player player in players)
             {
-                player.id = count;
-                count++;
                 if (player.isValidForStart() && player.playerValue() > minValue)
                 {
-                    if (player.position == "QB")
+                    if (player.position == "QB" && ((qbid > 0 && qbid == player.id) || qbid == 0))
                     {
                         qbs.Add(player.GenerateStruct());
                     }
                     else if (player.position == "RB")
                     {
-                        rbs1.Add(player.GenerateStruct());
+                        if ((rb1id > 0 && rb1id == player.id) || rb1id == 0)
+                        {
+                            rbs1.Add(player.GenerateStruct());
+                        }
                         rbs2.Add(player.GenerateStruct());
                     }
                     else if (player.position == "WR")
                     {
-                        wrs1.Add(player.GenerateStruct());
+                        if ((wr1id > 0 && wr1id == player.id) || wr1id == 0)
+                        {
+                            wrs1.Add(player.GenerateStruct());
+                        }
                         wrs2.Add(player.GenerateStruct());
                         wrs3.Add(player.GenerateStruct());
                     }
-                    else if (player.position == "TE")
+                    else if (player.position == "TE" && ((teid > 0 && teid == player.id) || teid == 0))
                     {
                         tes.Add(player.GenerateStruct());
                     }
-                    else if (player.position == "D/ST")
+                    else if (player.position == "D/ST" && ((defid > 0 && defid == player.id) || defid == 0))
                     {
                         defs.Add(player.GenerateStruct());
                     }
-                    if (player.position == "RB" || player.position == "WR")
+                    if ((player.position == "RB" || player.position == "WR") && ((utilid > 0 && utilid == player.id) || utilid == 0))
                     {
                         flexs.Add(player.GenerateStruct());
                     }
                 }
             }
 
+            int threadsPlayer = rbs2.Count / Variables.threads;
+
+            txtIncomingText.Text = "rbs2: " + rbs2.Count().ToString() + " threadsPlayer: " + threadsPlayer;
+
+            for (int j = 0; j < Variables.threads; j++)
+            {
+                if (j + 1 == Variables.threads)
+                {
+                    //This is needed for remainders in the thread
+                    runThreadForStats(j * threadsPlayer, rbs2.Count);
+                    txtIncomingText.Text = txtIncomingText.Text + " : " + j * threadsPlayer + " to " + rbs2.Count;
+                }
+                else
+                {
+                    runThreadForStats(j * threadsPlayer, ((j + 1) * threadsPlayer) - 1);
+                    txtIncomingText.Text = txtIncomingText.Text + " : " + j * threadsPlayer + " to " + ((j + 1) * threadsPlayer - 1);
+                }
+            }
+
+        }
+        
+        public void runThreadForStats(int playerNumberStart, int playerNumberEnd)
+        {
+
             new Thread(() =>
             {
-                foreach (PlayerStats qb in qbs)
+                totalThreads++;
+                for (int i = playerNumberStart; i < playerNumberEnd; i++)
                 {
-                    int currentScore = 0;
-                    int currentSalary = 0;
-                    qbCount++;
-                    foreach (PlayerStats rb1 in rbs1)
+                    rb2Count++;
+                    PlayerStats rb2 = rbs2.ElementAt<PlayerStats>(i);
+                    rb2sdone = rb2sdone + " : " + playerNumberEnd + " " + rb2.lastName + " " + rb2.firstName;
+                    foreach (PlayerStats qb in qbs)
                     {
-                        foreach (PlayerStats rb2 in rbs2)
+                        int currentScore = 0;
+                        int currentSalary = 0;
+                        qbCount++;
+                        foreach (PlayerStats rb1 in rbs1)
                         {
                             if (rb1.id != rb2.id)
                             {
@@ -449,17 +526,30 @@ namespace DailyFantasyNFL
                                                                 {
                                                                     currentSalary = qb.fanDuelCost + rb1.fanDuelCost + rb2.fanDuelCost + wr1.fanDuelCost + wr2.fanDuelCost + wr3.fanDuelCost + te.fanDuelCost + flex.fanDuelCost + def.fanDuelCost;
                                                                     currentScore = qb.fanDuelProjection + rb1.fanDuelProjection + rb2.fanDuelProjection + wr1.fanDuelProjection + wr2.fanDuelProjection + wr3.fanDuelProjection + te.fanDuelProjection + flex.fanDuelProjection + def.fanDuelProjection;
-                                                                    if (currentSalary < 60000 && currentScore > highScore)
+                                                                    if (currentSalary < Variables.gameCost && currentScore > highScore)
                                                                     {
                                                                         highCost = currentSalary;
                                                                         highScore = currentScore;
                                                                         highLineup = "QB: " + qb.lastName + ", " + qb.firstName + "RB1: " + rb1.lastName + ", " + rb1.firstName + "RB2: " + rb2.lastName + ", " + rb2.firstName + "WR1: " + wr1.lastName + ", " + wr1.firstName + "WR2: " + wr2.lastName + ", " + wr2.firstName + "WR3: " + wr3.lastName + ", " + wr3.firstName + "TE: " + te.lastName + ", " + te.firstName + "FLEX: " + flex.lastName + ", " + flex.firstName + "DEF: " + def.lastName + ", " + def.firstName;
                                                                     }
 
-                                                                    if (currentSalary <= maxCost && currentScore > minHighScore)
+                                                                    if (currentSalary <= Variables.gameCost && currentScore > Variables.minPointLineup)
                                                                     {
-                                                                        String lineup = "Score: " + currentScore + " Salary: " + currentSalary.ToString() + " QB: " + qb.lastName + ", " + qb.firstName + " RB1: " + rb1.lastName + ", " + rb1.firstName + " RB2: " + rb2.lastName + ", " + rb2.firstName + " WR1: " + wr1.lastName + ", " + wr1.firstName + " WR2: " + wr2.lastName + ", " + wr2.firstName + " WR3: " + wr3.lastName + ", " + wr3.firstName + " TE: " + te.lastName + ", " + te.firstName + " FLEX: " + flex.lastName + ", " + flex.firstName + " DEF: " + def.lastName + ", " + def.firstName;
-                                                                        lineups.Add(lineup);
+                                                                        //String lineup = "Score: " + currentScore + " Salary: " + currentSalary.ToString() + " QB: " + qb.lastName + ", " + qb.firstName + " RB1: " + rb1.lastName + ", " + rb1.firstName + " RB2: " + rb2.lastName + ", " + rb2.firstName + " WR1: " + wr1.lastName + ", " + wr1.firstName + " WR2: " + wr2.lastName + ", " + wr2.firstName + " WR3: " + wr3.lastName + ", " + wr3.firstName + " TE: " + te.lastName + ", " + te.firstName + " FLEX: " + flex.lastName + ", " + flex.firstName + " DEF: " + def.lastName + ", " + def.firstName;
+                                                                        //lineups.Add(lineup);
+                                                                        DataRow workRow = lineupsTable.NewRow();
+                                                                        workRow["cost"] = currentSalary;
+                                                                        workRow["score"] = currentScore;
+                                                                        workRow["qb"] = qb.firstName + " " + qb.lastName;
+                                                                        workRow["rb1"] = rb1.firstName + " " + rb1.lastName;
+                                                                        workRow["rb2"] = rb2.firstName + " " + rb2.lastName;
+                                                                        workRow["wr1"] = wr1.firstName + " " + wr1.lastName;
+                                                                        workRow["wr2"] = wr2.firstName + " " + wr2.lastName;
+                                                                        workRow["wr3"] = wr3.firstName + " " + wr3.lastName;
+                                                                        workRow["te"] = te.firstName + " " + te.lastName;
+                                                                        workRow["flex"] = flex.firstName + " " + flex.lastName;
+                                                                        workRow["def"] = def.firstName + " " + def.lastName;
+                                                                        lineupsTable.Rows.Add(workRow);
                                                                     }
                                                                 }
                                                             }
@@ -471,26 +561,33 @@ namespace DailyFantasyNFL
                                     }
                                 }
                             }
-                        }
+                            }
                     }
                 }
+                threadsDone++;
             }).Start();
         }
 
         private void btnViewStats_Click(object sender, EventArgs e)
         {
-            txtIncomingText.Text = "qb: " + qbCount.ToString() + "wr1: " + wr1Count.ToString();
+            txtIncomingText.Text = "qb: " + qbCount.ToString() + " wr1: " + wr1Count.ToString() + " RB2: " + rb2Count + " ThreadCount: " + totalThreads + " threadsDone: " + threadsDone;
             txtIncomingText.Text = txtIncomingText.Text + "\nhigh score: " + highScore.ToString() + "\nhigh cost: " + highCost.ToString() + "\nhigh lineup: " + highLineup;
-            txtIncomingText.Text = txtIncomingText.Text + "\nlineups count: " + lineups.Count();
+            txtIncomingText.Text = txtIncomingText.Text + "\nrb2s: " + rb2sdone;
         }
 
         private void rdoViewLineups_Click(object sender, EventArgs e)
         {
+
+            this.dataGridPlayers.AutoGenerateColumns = true;
+            this.dataGridPlayers.Columns.Clear();
+            
+            dataGridPlayers.DataSource = lineupsTable;
+            /*
             txtIncomingText.Text = txtIncomingText.Text + "\nlineups count: " + lineups.Count();
             foreach (String lineup in lineups)
             {
                 txtIncomingText.Text = txtIncomingText.Text + "\n" + lineup;
-            }
+            }*/
         }
 
         private void btnResetStats_Click(object sender, EventArgs e)
@@ -547,8 +644,9 @@ namespace DailyFantasyNFL
                                 String team = values[2].Replace("\"", "");
                                 String opponent = values[5];
 
-                                if (playerPosition == "DST") {
+                                if (playerPosition == "dst" || playerPosition == "DST") {
                                     playerPosition = "D/ST";
+                                    lastName = "D/ST";
                                 }
 
                                 double playerProjection = Double.Parse(values[6].Replace("\"", ""));
@@ -561,6 +659,10 @@ namespace DailyFantasyNFL
                                 thisPlayer.rotogrindersFanDuelProjection = -1;
                                 thisPlayer.proFootballFocusProjection = playerProjection;
                                 thisPlayer.position = playerPosition;
+                                thisPlayer.team = values[2].Replace("\"", "");
+                                thisPlayer.opponent = values[5].Replace("\"", "");
+
+                                txtIncomingText.Text = txtIncomingText.Text + thisPlayer.ToString() + "\n";
 
                                 UpdatePlayerList(thisPlayer);
                             }

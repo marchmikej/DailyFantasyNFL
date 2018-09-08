@@ -13,15 +13,16 @@ namespace DailyFantasyNFL
         public String lastName;
         public String firstName;
         public String position;
+        public String team;
+        public String opponent;
+        public String gameDay;
         public int fanDuelCost;
         public double rotogrindersFanDuelProjection;
         public double numberfireFanDuelProjection;
         public double proFootballFocusProjection;
-        public double playerStartValue;
 
         public Player()
         {
-            playerStartValue = 3;
             lastName = "";
             firstName = "";
             position = "";
@@ -29,6 +30,9 @@ namespace DailyFantasyNFL
             rotogrindersFanDuelProjection = -1;
             numberfireFanDuelProjection = -1;
             proFootballFocusProjection = -1;
+            team = "";
+            opponent = "";
+            gameDay = "";
             id = -1;
         }
 
@@ -49,8 +53,24 @@ namespace DailyFantasyNFL
 
         public bool isValidForStart()
         {
+            if (gameDay.Contains("Thu") && Variables.Thursday == false)
+            {
+                return false;
+            } else if (gameDay.Contains("Sat") && Variables.Saturday == false)
+            {
+                return false;
+            }
+            if (gameDay.Contains("Sun") && Variables.Sunday == false)
+            {
+                return false;
+            }
+            else if (gameDay.Contains("Mon") && Variables.Monday == false)
+            {
+                return false;
+            }
+        
             bool validStart = false;
-            if (getExpectedValue() > playerStartValue)
+            if (getExpectedValue() > Variables.minPlayerPoints)
             {
                 validStart = true;
             }
@@ -74,6 +94,7 @@ namespace DailyFantasyNFL
 
         public DataRow CreateDataRow(DataRow workRow)
         {
+            workRow["id"] = id;
             workRow["lastName"] = lastName;
             workRow["firstName"] = firstName;
             workRow["fanDuelCost"] = fanDuelCost;
@@ -82,6 +103,10 @@ namespace DailyFantasyNFL
             workRow["proFootballFocusProjection"] = proFootballFocusProjection;
             workRow["position"] = position;
             workRow["fanDuelValue"] = getExpectedValue() * 10000 / fanDuelCost;
+            workRow["team"] = team;
+            workRow["opponent"] = opponent;
+            workRow["gameday"] = gameDay;
+            workRow["pointsProjection"] = getExpectedValue();
             return workRow;
         }
 
