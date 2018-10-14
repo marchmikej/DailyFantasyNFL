@@ -66,6 +66,43 @@
             this.rdoFanDuel = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.txtThreadNumber = new System.Windows.Forms.TextBox();
+            this.rdoFanDuelCSV = new System.Windows.Forms.RadioButton();
+            this.txtIncomingFile = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.chkArizona = new System.Windows.Forms.CheckBox();
+            this.chkAtlanta = new System.Windows.Forms.CheckBox();
+            this.chkBaltimore = new System.Windows.Forms.CheckBox();
+            this.chkBuffalo = new System.Windows.Forms.CheckBox();
+            this.chkCarolina = new System.Windows.Forms.CheckBox();
+            this.chkChicago = new System.Windows.Forms.CheckBox();
+            this.chkCleveland = new System.Windows.Forms.CheckBox();
+            this.chkDallas = new System.Windows.Forms.CheckBox();
+            this.chkDenver = new System.Windows.Forms.CheckBox();
+            this.chkDetroit = new System.Windows.Forms.CheckBox();
+            this.chkGreenBay = new System.Windows.Forms.CheckBox();
+            this.chkHouston = new System.Windows.Forms.CheckBox();
+            this.chkIndianapolis = new System.Windows.Forms.CheckBox();
+            this.chkJacksonville = new System.Windows.Forms.CheckBox();
+            this.chkKansasCity = new System.Windows.Forms.CheckBox();
+            this.chkMiami = new System.Windows.Forms.CheckBox();
+            this.chkMinnesota = new System.Windows.Forms.CheckBox();
+            this.chkNewEngland = new System.Windows.Forms.CheckBox();
+            this.chkNewOrleans = new System.Windows.Forms.CheckBox();
+            this.chkNewYorkGiants = new System.Windows.Forms.CheckBox();
+            this.chkNewYorkJets = new System.Windows.Forms.CheckBox();
+            this.chkOakland = new System.Windows.Forms.CheckBox();
+            this.chkPhiladelphia = new System.Windows.Forms.CheckBox();
+            this.chkPittsburgh = new System.Windows.Forms.CheckBox();
+            this.chkLARams = new System.Windows.Forms.CheckBox();
+            this.chkLAChargers = new System.Windows.Forms.CheckBox();
+            this.chkSanFrancisco = new System.Windows.Forms.CheckBox();
+            this.chkSeattle = new System.Windows.Forms.CheckBox();
+            this.chkTampaBay = new System.Windows.Forms.CheckBox();
+            this.chkTenessee = new System.Windows.Forms.CheckBox();
+            this.chkWashington = new System.Windows.Forms.CheckBox();
+            this.chkCincinnati = new System.Windows.Forms.CheckBox();
+            this.txtExcludePlayers = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPlayers)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -142,11 +179,11 @@
             // 
             this.dataGridPlayers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPlayers.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dataGridPlayers.Location = new System.Drawing.Point(546, 0);
+            this.dataGridPlayers.Location = new System.Drawing.Point(728, 0);
             this.dataGridPlayers.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridPlayers.Name = "dataGridPlayers";
             this.dataGridPlayers.RowTemplate.Height = 28;
-            this.dataGridPlayers.Size = new System.Drawing.Size(1005, 644);
+            this.dataGridPlayers.Size = new System.Drawing.Size(896, 627);
             this.dataGridPlayers.TabIndex = 7;
             // 
             // txtIncomingText
@@ -443,12 +480,414 @@
             this.txtThreadNumber.Size = new System.Drawing.Size(100, 20);
             this.txtThreadNumber.TabIndex = 36;
             // 
+            // rdoFanDuelCSV
+            // 
+            this.rdoFanDuelCSV.AutoSize = true;
+            this.rdoFanDuelCSV.Location = new System.Drawing.Point(253, 401);
+            this.rdoFanDuelCSV.Name = "rdoFanDuelCSV";
+            this.rdoFanDuelCSV.Size = new System.Drawing.Size(86, 17);
+            this.rdoFanDuelCSV.TabIndex = 37;
+            this.rdoFanDuelCSV.TabStop = true;
+            this.rdoFanDuelCSV.Text = "FanDuelCSV";
+            this.rdoFanDuelCSV.UseVisualStyleBackColor = true;
+            // 
+            // txtIncomingFile
+            // 
+            this.txtIncomingFile.Location = new System.Drawing.Point(249, 567);
+            this.txtIncomingFile.Name = "txtIncomingFile";
+            this.txtIncomingFile.Size = new System.Drawing.Size(100, 20);
+            this.txtIncomingFile.TabIndex = 38;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(168, 565);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 39;
+            this.button1.Text = "File";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // chkArizona
+            // 
+            this.chkArizona.AutoSize = true;
+            this.chkArizona.Location = new System.Drawing.Point(548, 30);
+            this.chkArizona.Name = "chkArizona";
+            this.chkArizona.Size = new System.Drawing.Size(61, 17);
+            this.chkArizona.TabIndex = 40;
+            this.chkArizona.Text = "Arizona";
+            this.chkArizona.UseVisualStyleBackColor = true;
+            this.chkArizona.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // chkAtlanta
+            // 
+            this.chkAtlanta.AutoSize = true;
+            this.chkAtlanta.Location = new System.Drawing.Point(548, 50);
+            this.chkAtlanta.Name = "chkAtlanta";
+            this.chkAtlanta.Size = new System.Drawing.Size(59, 17);
+            this.chkAtlanta.TabIndex = 41;
+            this.chkAtlanta.Text = "Atlanta";
+            this.chkAtlanta.UseVisualStyleBackColor = true;
+            // 
+            // chkBaltimore
+            // 
+            this.chkBaltimore.AutoSize = true;
+            this.chkBaltimore.Location = new System.Drawing.Point(548, 73);
+            this.chkBaltimore.Name = "chkBaltimore";
+            this.chkBaltimore.Size = new System.Drawing.Size(69, 17);
+            this.chkBaltimore.TabIndex = 42;
+            this.chkBaltimore.Text = "Baltimore";
+            this.chkBaltimore.UseVisualStyleBackColor = true;
+            // 
+            // chkBuffalo
+            // 
+            this.chkBuffalo.AutoSize = true;
+            this.chkBuffalo.Location = new System.Drawing.Point(548, 96);
+            this.chkBuffalo.Name = "chkBuffalo";
+            this.chkBuffalo.Size = new System.Drawing.Size(59, 17);
+            this.chkBuffalo.TabIndex = 43;
+            this.chkBuffalo.Text = "Buffalo";
+            this.chkBuffalo.UseVisualStyleBackColor = true;
+            // 
+            // chkCarolina
+            // 
+            this.chkCarolina.AutoSize = true;
+            this.chkCarolina.Location = new System.Drawing.Point(548, 119);
+            this.chkCarolina.Name = "chkCarolina";
+            this.chkCarolina.Size = new System.Drawing.Size(64, 17);
+            this.chkCarolina.TabIndex = 44;
+            this.chkCarolina.Text = "Carolina";
+            this.chkCarolina.UseVisualStyleBackColor = true;
+            // 
+            // chkChicago
+            // 
+            this.chkChicago.AutoSize = true;
+            this.chkChicago.Location = new System.Drawing.Point(548, 142);
+            this.chkChicago.Name = "chkChicago";
+            this.chkChicago.Size = new System.Drawing.Size(65, 17);
+            this.chkChicago.TabIndex = 45;
+            this.chkChicago.Text = "Chicago";
+            this.chkChicago.UseVisualStyleBackColor = true;
+            // 
+            // chkCleveland
+            // 
+            this.chkCleveland.AutoSize = true;
+            this.chkCleveland.Location = new System.Drawing.Point(548, 188);
+            this.chkCleveland.Name = "chkCleveland";
+            this.chkCleveland.Size = new System.Drawing.Size(73, 17);
+            this.chkCleveland.TabIndex = 46;
+            this.chkCleveland.Text = "Cleveland";
+            this.chkCleveland.UseVisualStyleBackColor = true;
+            // 
+            // chkDallas
+            // 
+            this.chkDallas.AutoSize = true;
+            this.chkDallas.Location = new System.Drawing.Point(548, 211);
+            this.chkDallas.Name = "chkDallas";
+            this.chkDallas.Size = new System.Drawing.Size(55, 17);
+            this.chkDallas.TabIndex = 47;
+            this.chkDallas.Text = "Dallas";
+            this.chkDallas.UseVisualStyleBackColor = true;
+            // 
+            // chkDenver
+            // 
+            this.chkDenver.AutoSize = true;
+            this.chkDenver.Location = new System.Drawing.Point(548, 234);
+            this.chkDenver.Name = "chkDenver";
+            this.chkDenver.Size = new System.Drawing.Size(61, 17);
+            this.chkDenver.TabIndex = 48;
+            this.chkDenver.Text = "Denver";
+            this.chkDenver.UseVisualStyleBackColor = true;
+            // 
+            // chkDetroit
+            // 
+            this.chkDetroit.AutoSize = true;
+            this.chkDetroit.Location = new System.Drawing.Point(548, 257);
+            this.chkDetroit.Name = "chkDetroit";
+            this.chkDetroit.Size = new System.Drawing.Size(57, 17);
+            this.chkDetroit.TabIndex = 49;
+            this.chkDetroit.Text = "Detroit";
+            this.chkDetroit.UseVisualStyleBackColor = true;
+            // 
+            // chkGreenBay
+            // 
+            this.chkGreenBay.AutoSize = true;
+            this.chkGreenBay.Location = new System.Drawing.Point(548, 280);
+            this.chkGreenBay.Name = "chkGreenBay";
+            this.chkGreenBay.Size = new System.Drawing.Size(73, 17);
+            this.chkGreenBay.TabIndex = 50;
+            this.chkGreenBay.Text = "GreenBay";
+            this.chkGreenBay.UseVisualStyleBackColor = true;
+            // 
+            // chkHouston
+            // 
+            this.chkHouston.AutoSize = true;
+            this.chkHouston.Location = new System.Drawing.Point(548, 303);
+            this.chkHouston.Name = "chkHouston";
+            this.chkHouston.Size = new System.Drawing.Size(66, 17);
+            this.chkHouston.TabIndex = 51;
+            this.chkHouston.Text = "Houston";
+            this.chkHouston.UseVisualStyleBackColor = true;
+            // 
+            // chkIndianapolis
+            // 
+            this.chkIndianapolis.AutoSize = true;
+            this.chkIndianapolis.Location = new System.Drawing.Point(548, 326);
+            this.chkIndianapolis.Name = "chkIndianapolis";
+            this.chkIndianapolis.Size = new System.Drawing.Size(82, 17);
+            this.chkIndianapolis.TabIndex = 52;
+            this.chkIndianapolis.Text = "Indianapolis";
+            this.chkIndianapolis.UseVisualStyleBackColor = true;
+            // 
+            // chkJacksonville
+            // 
+            this.chkJacksonville.AutoSize = true;
+            this.chkJacksonville.Location = new System.Drawing.Point(548, 349);
+            this.chkJacksonville.Name = "chkJacksonville";
+            this.chkJacksonville.Size = new System.Drawing.Size(84, 17);
+            this.chkJacksonville.TabIndex = 53;
+            this.chkJacksonville.Text = "Jacksonville";
+            this.chkJacksonville.UseVisualStyleBackColor = true;
+            // 
+            // chkKansasCity
+            // 
+            this.chkKansasCity.AutoSize = true;
+            this.chkKansasCity.Location = new System.Drawing.Point(548, 372);
+            this.chkKansasCity.Name = "chkKansasCity";
+            this.chkKansasCity.Size = new System.Drawing.Size(81, 17);
+            this.chkKansasCity.TabIndex = 54;
+            this.chkKansasCity.Text = "Kansas City";
+            this.chkKansasCity.UseVisualStyleBackColor = true;
+            // 
+            // chkMiami
+            // 
+            this.chkMiami.AutoSize = true;
+            this.chkMiami.Location = new System.Drawing.Point(634, 73);
+            this.chkMiami.Name = "chkMiami";
+            this.chkMiami.Size = new System.Drawing.Size(53, 17);
+            this.chkMiami.TabIndex = 55;
+            this.chkMiami.Text = "Miami";
+            this.chkMiami.UseVisualStyleBackColor = true;
+            // 
+            // chkMinnesota
+            // 
+            this.chkMinnesota.AutoSize = true;
+            this.chkMinnesota.Location = new System.Drawing.Point(634, 96);
+            this.chkMinnesota.Name = "chkMinnesota";
+            this.chkMinnesota.Size = new System.Drawing.Size(75, 17);
+            this.chkMinnesota.TabIndex = 56;
+            this.chkMinnesota.Text = "Minnesota";
+            this.chkMinnesota.UseVisualStyleBackColor = true;
+            // 
+            // chkNewEngland
+            // 
+            this.chkNewEngland.AutoSize = true;
+            this.chkNewEngland.Location = new System.Drawing.Point(634, 119);
+            this.chkNewEngland.Name = "chkNewEngland";
+            this.chkNewEngland.Size = new System.Drawing.Size(90, 17);
+            this.chkNewEngland.TabIndex = 57;
+            this.chkNewEngland.Text = "New England";
+            this.chkNewEngland.UseVisualStyleBackColor = true;
+            // 
+            // chkNewOrleans
+            // 
+            this.chkNewOrleans.AutoSize = true;
+            this.chkNewOrleans.Location = new System.Drawing.Point(634, 142);
+            this.chkNewOrleans.Name = "chkNewOrleans";
+            this.chkNewOrleans.Size = new System.Drawing.Size(87, 17);
+            this.chkNewOrleans.TabIndex = 58;
+            this.chkNewOrleans.Text = "New Orleans";
+            this.chkNewOrleans.UseVisualStyleBackColor = true;
+            // 
+            // chkNewYorkGiants
+            // 
+            this.chkNewYorkGiants.AutoSize = true;
+            this.chkNewYorkGiants.Location = new System.Drawing.Point(634, 165);
+            this.chkNewYorkGiants.Name = "chkNewYorkGiants";
+            this.chkNewYorkGiants.Size = new System.Drawing.Size(74, 17);
+            this.chkNewYorkGiants.TabIndex = 59;
+            this.chkNewYorkGiants.Text = "NY Giants";
+            this.chkNewYorkGiants.UseVisualStyleBackColor = true;
+            // 
+            // chkNewYorkJets
+            // 
+            this.chkNewYorkJets.AutoSize = true;
+            this.chkNewYorkJets.Location = new System.Drawing.Point(634, 188);
+            this.chkNewYorkJets.Name = "chkNewYorkJets";
+            this.chkNewYorkJets.Size = new System.Drawing.Size(63, 17);
+            this.chkNewYorkJets.TabIndex = 60;
+            this.chkNewYorkJets.Text = "NY Jets";
+            this.chkNewYorkJets.UseVisualStyleBackColor = true;
+            // 
+            // chkOakland
+            // 
+            this.chkOakland.AutoSize = true;
+            this.chkOakland.Location = new System.Drawing.Point(634, 211);
+            this.chkOakland.Name = "chkOakland";
+            this.chkOakland.Size = new System.Drawing.Size(66, 17);
+            this.chkOakland.TabIndex = 61;
+            this.chkOakland.Text = "Oakland";
+            this.chkOakland.UseVisualStyleBackColor = true;
+            // 
+            // chkPhiladelphia
+            // 
+            this.chkPhiladelphia.AutoSize = true;
+            this.chkPhiladelphia.Location = new System.Drawing.Point(634, 234);
+            this.chkPhiladelphia.Name = "chkPhiladelphia";
+            this.chkPhiladelphia.Size = new System.Drawing.Size(83, 17);
+            this.chkPhiladelphia.TabIndex = 62;
+            this.chkPhiladelphia.Text = "Philadelphia";
+            this.chkPhiladelphia.UseVisualStyleBackColor = true;
+            // 
+            // chkPittsburgh
+            // 
+            this.chkPittsburgh.AutoSize = true;
+            this.chkPittsburgh.Location = new System.Drawing.Point(634, 257);
+            this.chkPittsburgh.Name = "chkPittsburgh";
+            this.chkPittsburgh.Size = new System.Drawing.Size(73, 17);
+            this.chkPittsburgh.TabIndex = 63;
+            this.chkPittsburgh.Text = "Pittsburgh";
+            this.chkPittsburgh.UseVisualStyleBackColor = true;
+            // 
+            // chkLARams
+            // 
+            this.chkLARams.AutoSize = true;
+            this.chkLARams.Location = new System.Drawing.Point(634, 50);
+            this.chkLARams.Name = "chkLARams";
+            this.chkLARams.Size = new System.Drawing.Size(69, 17);
+            this.chkLARams.TabIndex = 64;
+            this.chkLARams.Text = "LA Rams";
+            this.chkLARams.UseVisualStyleBackColor = true;
+            // 
+            // chkLAChargers
+            // 
+            this.chkLAChargers.AutoSize = true;
+            this.chkLAChargers.Location = new System.Drawing.Point(634, 30);
+            this.chkLAChargers.Name = "chkLAChargers";
+            this.chkLAChargers.Size = new System.Drawing.Size(84, 17);
+            this.chkLAChargers.TabIndex = 65;
+            this.chkLAChargers.Text = "LA Chargers";
+            this.chkLAChargers.UseVisualStyleBackColor = true;
+            // 
+            // chkSanFrancisco
+            // 
+            this.chkSanFrancisco.AutoSize = true;
+            this.chkSanFrancisco.Location = new System.Drawing.Point(634, 280);
+            this.chkSanFrancisco.Name = "chkSanFrancisco";
+            this.chkSanFrancisco.Size = new System.Drawing.Size(94, 17);
+            this.chkSanFrancisco.TabIndex = 66;
+            this.chkSanFrancisco.Text = "San Francisco";
+            this.chkSanFrancisco.UseVisualStyleBackColor = true;
+            // 
+            // chkSeattle
+            // 
+            this.chkSeattle.AutoSize = true;
+            this.chkSeattle.Location = new System.Drawing.Point(634, 303);
+            this.chkSeattle.Name = "chkSeattle";
+            this.chkSeattle.Size = new System.Drawing.Size(59, 17);
+            this.chkSeattle.TabIndex = 67;
+            this.chkSeattle.Text = "Seattle";
+            this.chkSeattle.UseVisualStyleBackColor = true;
+            // 
+            // chkTampaBay
+            // 
+            this.chkTampaBay.AutoSize = true;
+            this.chkTampaBay.Location = new System.Drawing.Point(634, 326);
+            this.chkTampaBay.Name = "chkTampaBay";
+            this.chkTampaBay.Size = new System.Drawing.Size(80, 17);
+            this.chkTampaBay.TabIndex = 68;
+            this.chkTampaBay.Text = "Tampa Bay";
+            this.chkTampaBay.UseVisualStyleBackColor = true;
+            // 
+            // chkTenessee
+            // 
+            this.chkTenessee.AutoSize = true;
+            this.chkTenessee.Location = new System.Drawing.Point(634, 349);
+            this.chkTenessee.Name = "chkTenessee";
+            this.chkTenessee.Size = new System.Drawing.Size(79, 17);
+            this.chkTenessee.TabIndex = 69;
+            this.chkTenessee.Text = "Tennessee";
+            this.chkTenessee.UseVisualStyleBackColor = true;
+            // 
+            // chkWashington
+            // 
+            this.chkWashington.AutoSize = true;
+            this.chkWashington.Location = new System.Drawing.Point(634, 372);
+            this.chkWashington.Name = "chkWashington";
+            this.chkWashington.Size = new System.Drawing.Size(83, 17);
+            this.chkWashington.TabIndex = 70;
+            this.chkWashington.Text = "Washington";
+            this.chkWashington.UseVisualStyleBackColor = true;
+            // 
+            // chkCincinnati
+            // 
+            this.chkCincinnati.AutoSize = true;
+            this.chkCincinnati.Location = new System.Drawing.Point(548, 165);
+            this.chkCincinnati.Name = "chkCincinnati";
+            this.chkCincinnati.Size = new System.Drawing.Size(72, 17);
+            this.chkCincinnati.TabIndex = 71;
+            this.chkCincinnati.Text = "Cincinnati";
+            this.chkCincinnati.UseVisualStyleBackColor = true;
+            // 
+            // txtExcludePlayers
+            // 
+            this.txtExcludePlayers.Location = new System.Drawing.Point(313, 509);
+            this.txtExcludePlayers.Name = "txtExcludePlayers";
+            this.txtExcludePlayers.Size = new System.Drawing.Size(201, 20);
+            this.txtExcludePlayers.TabIndex = 72;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(310, 493);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(82, 13);
+            this.label9.TabIndex = 73;
+            this.label9.Text = "Exclude Players";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1551, 644);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txtExcludePlayers);
+            this.Controls.Add(this.chkCincinnati);
+            this.Controls.Add(this.chkWashington);
+            this.Controls.Add(this.chkTenessee);
+            this.Controls.Add(this.chkTampaBay);
+            this.Controls.Add(this.chkSeattle);
+            this.Controls.Add(this.chkSanFrancisco);
+            this.Controls.Add(this.chkLAChargers);
+            this.Controls.Add(this.chkLARams);
+            this.Controls.Add(this.chkPittsburgh);
+            this.Controls.Add(this.chkPhiladelphia);
+            this.Controls.Add(this.chkOakland);
+            this.Controls.Add(this.chkNewYorkJets);
+            this.Controls.Add(this.chkNewYorkGiants);
+            this.Controls.Add(this.chkNewOrleans);
+            this.Controls.Add(this.chkNewEngland);
+            this.Controls.Add(this.chkMinnesota);
+            this.Controls.Add(this.chkMiami);
+            this.Controls.Add(this.chkKansasCity);
+            this.Controls.Add(this.chkJacksonville);
+            this.Controls.Add(this.chkIndianapolis);
+            this.Controls.Add(this.chkHouston);
+            this.Controls.Add(this.chkGreenBay);
+            this.Controls.Add(this.chkDetroit);
+            this.Controls.Add(this.chkDenver);
+            this.Controls.Add(this.chkDallas);
+            this.Controls.Add(this.chkCleveland);
+            this.Controls.Add(this.chkChicago);
+            this.Controls.Add(this.chkCarolina);
+            this.Controls.Add(this.chkBuffalo);
+            this.Controls.Add(this.chkBaltimore);
+            this.Controls.Add(this.chkAtlanta);
+            this.Controls.Add(this.chkArizona);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtIncomingFile);
+            this.Controls.Add(this.rdoFanDuelCSV);
             this.Controls.Add(this.txtThreadNumber);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox1);
@@ -535,6 +974,43 @@
         private System.Windows.Forms.RadioButton rdoFanDuel;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtThreadNumber;
+        private System.Windows.Forms.RadioButton rdoFanDuelCSV;
+        private System.Windows.Forms.TextBox txtIncomingFile;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chkArizona;
+        private System.Windows.Forms.CheckBox chkAtlanta;
+        private System.Windows.Forms.CheckBox chkBaltimore;
+        private System.Windows.Forms.CheckBox chkBuffalo;
+        private System.Windows.Forms.CheckBox chkCarolina;
+        private System.Windows.Forms.CheckBox chkChicago;
+        private System.Windows.Forms.CheckBox chkCleveland;
+        private System.Windows.Forms.CheckBox chkDallas;
+        private System.Windows.Forms.CheckBox chkDenver;
+        private System.Windows.Forms.CheckBox chkDetroit;
+        private System.Windows.Forms.CheckBox chkGreenBay;
+        private System.Windows.Forms.CheckBox chkHouston;
+        private System.Windows.Forms.CheckBox chkIndianapolis;
+        private System.Windows.Forms.CheckBox chkJacksonville;
+        private System.Windows.Forms.CheckBox chkKansasCity;
+        private System.Windows.Forms.CheckBox chkMiami;
+        private System.Windows.Forms.CheckBox chkMinnesota;
+        private System.Windows.Forms.CheckBox chkNewEngland;
+        private System.Windows.Forms.CheckBox chkNewOrleans;
+        private System.Windows.Forms.CheckBox chkNewYorkGiants;
+        private System.Windows.Forms.CheckBox chkNewYorkJets;
+        private System.Windows.Forms.CheckBox chkOakland;
+        private System.Windows.Forms.CheckBox chkPhiladelphia;
+        private System.Windows.Forms.CheckBox chkPittsburgh;
+        private System.Windows.Forms.CheckBox chkLARams;
+        private System.Windows.Forms.CheckBox chkLAChargers;
+        private System.Windows.Forms.CheckBox chkSanFrancisco;
+        private System.Windows.Forms.CheckBox chkSeattle;
+        private System.Windows.Forms.CheckBox chkTampaBay;
+        private System.Windows.Forms.CheckBox chkTenessee;
+        private System.Windows.Forms.CheckBox chkWashington;
+        private System.Windows.Forms.CheckBox chkCincinnati;
+        private System.Windows.Forms.TextBox txtExcludePlayers;
+        private System.Windows.Forms.Label label9;
     }
 }
 

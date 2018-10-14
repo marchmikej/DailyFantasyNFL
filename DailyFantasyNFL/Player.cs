@@ -10,7 +10,7 @@ namespace DailyFantasyNFL
     class Player
     {
         public int id;
-        public String lastName;
+        private String lastName;
         public String firstName;
         public String position;
         public String team;
@@ -20,6 +20,7 @@ namespace DailyFantasyNFL
         public double rotogrindersFanDuelProjection;
         public double numberfireFanDuelProjection;
         public double proFootballFocusProjection;
+        public String fanDuelID;
 
         public Player()
         {
@@ -34,11 +35,38 @@ namespace DailyFantasyNFL
             opponent = "";
             gameDay = "";
             id = -1;
+            fanDuelID = "0";
+        }
+
+        public void SetLastName(String newLastName)
+        {
+            if (newLastName.Contains(" ")) {
+                lastName = newLastName.Substring(0, newLastName.IndexOf(" "));
+            } else {
+                lastName = newLastName;
+            }
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void SetTeamNumFire(String newTeam)
+        {
+            if (newTeam == "LA")
+            {
+                team = "LAR";
+            }
+            else
+            {
+                team = newTeam;
+            }
         }
 
         public double getExpectedValue()
         {
-            return (numberfireFanDuelProjection + rotogrindersFanDuelProjection + proFootballFocusProjection) / 3;
+            //return (numberfireFanDuelProjection + rotogrindersFanDuelProjection + proFootballFocusProjection) / 3;
+            return proFootballFocusProjection;
         }
 
         public double playerValue()
@@ -53,28 +81,29 @@ namespace DailyFantasyNFL
 
         public bool isValidForStart()
         {
-            if (gameDay.Contains("Thu") && Variables.Thursday == false)
+            foreach (int exclude in Variables.excludePlayer)
             {
-                return false;
-            } else if (gameDay.Contains("Sat") && Variables.Saturday == false)
-            {
-                return false;
+                if (id == exclude)
+                {
+                    return false;
+                }
             }
-            if (gameDay.Contains("Sun") && Variables.Sunday == false)
-            {
-                return false;
-            }
-            else if (gameDay.Contains("Mon") && Variables.Monday == false)
+            if (position == "QB" && playerValue() < Variables.minQBValue)
             {
                 return false;
             }
         
             bool validStart = false;
+            if (!Variables.teamEligible[team])
+            {
+                return false;
+            }
             if (getExpectedValue() > Variables.minPlayerPoints)
             {
                 validStart = true;
             }
-            return numberfireFanDuelProjection > 0 && rotogrindersFanDuelProjection > 0 && validStart;
+            //return numberfireFanDuelProjection > 0 && rotogrindersFanDuelProjection > 0 && validStart;
+            return validStart;
         }
 
         public override string ToString()
@@ -116,6 +145,7 @@ namespace DailyFantasyNFL
             newStruct.lastName = lastName;
             newStruct.firstName = firstName;
             newStruct.position = position;
+            newStruct.fanDuelID = fanDuelID;
             newStruct.fanDuelCost = fanDuelCost;
             newStruct.fanDuelProjection = Convert.ToInt32(getExpectedValue());
             newStruct.id = id;
